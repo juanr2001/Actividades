@@ -38,7 +38,7 @@ group :development, :test do
   # Debugging our app with pry
   gem 'pry'
   #let's do some testing
-  gem 'rspec-rails', ' ~> 2.0'
+  gem 'rspec-rails', '~> 2.0'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -47,7 +47,7 @@ group :development, :test do
 end
 
 group :test do
-    gem 'capybara', '~> 2.1.0'
+  gem 'capybara', '~> 2.1.0'
 end
 
 # IMPORTANT! Some of the defaults have changed in Capybara 2.1. If you're experiencing failures,
