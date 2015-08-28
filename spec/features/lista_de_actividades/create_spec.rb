@@ -84,5 +84,57 @@ describe "Creating lista de actividades" do
 
     end
 
+#                                                    DESCRIPTION
+#Testing description to have an empty string.
+#This test passes after adding validations in the Model
+
+        it "displays an error when the lista de actividade has no description" do
+        expect(ListaDeActividade.count).to eq(0)
+
+        visit "/lista_de_actividades"
+        click_link "New Lista de actividade"
+        expect(page).to have_content("New Lista De Actividade")
+
+        #here I set the description as an empty string.
+        fill_in "Title", with: "Play soccer"
+        fill_in "Description", with: ""
+        click_button "Create Lista de actividade"
+
+        #We expect an error if it's black
+        expect(page).to have_content("error")
+        #should start at 0 in our databasa
+        expect(ListaDeActividade.count).to eq(0)
+
+        #we are going back to the main page
+        visit "/lista_de_actividades"
+        #expext to not have a title content
+        expect(page).to_not have_content("Play soccer")
+
+
+    end
+
+        it "displays an error when the lista de actividade has a description less than 5 characters" do
+        expect(ListaDeActividade.count).to eq(0)
+
+        visit "/lista_de_actividades"
+        click_link "New Lista de actividade"
+        expect(page).to have_content("New Lista De Actividade")
+
+        #here I set the description as an empty string.
+        fill_in "Title", with: "Play soccer"
+        fill_in "Description", with: "With"
+        click_button "Create Lista de actividade"
+
+        #We expect an error if it's black
+        expect(page).to have_content("error")
+        #should start at 0 in our databasa
+        expect(ListaDeActividade.count).to eq(0)
+
+        #we are going back to the main page
+        visit "/lista_de_actividades"
+        #expext to not have a title content
+        expect(page).to_not have_content("Play soccer")
+    end
+
 end
 
