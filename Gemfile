@@ -35,7 +35,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  # Debugging our app with pry
+  gem 'pry'
+  #let's do some testing
+  gem 'rspec-rails', ' ~> 2.0'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -43,3 +46,25 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+    gem 'capybara', '~> 2.1.0'
+end
+
+# IMPORTANT! Some of the defaults have changed in Capybara 2.1. If you're experiencing failures,
+# please revert to the old behaviour by setting:
+
+#     Capybara.configure do |config|
+#       config.match = :one
+#       config.exact_options = true
+#       config.ignore_hidden_elements = true
+#       config.visible_text_only = true
+#     end
+
+# If you're migrating from Capybara 1.x, try:
+
+#     Capybara.configure do |config|
+#       config.match = :prefer_exact
+#       config.ignore_hidden_elements = false
+#     end
+
+# Details here: http://www.elabs.se/blog/60-introducing-capybara-2-1
