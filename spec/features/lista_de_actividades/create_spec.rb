@@ -1,10 +1,10 @@
 require 'spec_helper'
 #describing what we should do...
 describe "Creating lista de actividades" do
-    #tell what it should do when...
-    it "redirects to the lista de actividade index page on success" do
 
-#Going to check if it display what is been specified when we want to create a new Lista de Actividades
+    def create_list_de_actividades(options = {})
+        options[:title] ||= "Playing soccer"
+        options[:description] ||= "With some friends"
 
         #visit the index page, and when...
         visit "/lista_de_actividades"
@@ -16,13 +16,22 @@ describe "Creating lista de actividades" do
 #Going to text when we create a Lista de Actividades
 
         #When we write a title and...
-        fill_in "Title", with: "Going to the Pool"
+        fill_in "Title", with: options[:title]
         # when we write the description, and...
-        fill_in "Description", with: "My friends"
+        fill_in "Description", with: options[:description]
         #after clicking the button, then it should...
         click_button "Create Lista de actividade"
+
+    end
+
+    #tell what it should do when...
+    it "redirects to the lista de actividade index page on success" do
+
+        create_list_de_actividades()
+
         #expect to have the content type in the title
-        expect(page).to have_content("Going to the Pool")
+        expect(page).to have_content("Playing soccer")
+
 
     end
 
@@ -34,14 +43,7 @@ describe "Creating lista de actividades" do
     it "displays an error when the lista de actividade has no title" do
         expect(ListaDeActividade.count).to eq(0)
 
-        visit "/lista_de_actividades"
-        click_link "New Lista de actividade"
-        expect(page).to have_content("New Lista De Actividade")
-
-        #here I set the title as an empty string.
-        fill_in "Title", with: ""
-        fill_in "Description", with: "My friends"
-        click_button "Create Lista de actividade"
+        create_list_de_actividades( title: "" )
 
         #We expect an error if it's black
         expect(page).to have_content("error")
@@ -63,14 +65,7 @@ describe "Creating lista de actividades" do
         it "displays an error when the lista de actividade has a title less than 3 characters" do
         expect(ListaDeActividade.count).to eq(0)
 
-        visit "/lista_de_actividades"
-        click_link "New Lista de actividade"
-        expect(page).to have_content("New Lista De Actividade")
-
-        #here I set the title as an empty string.
-        fill_in "Title", with: "Hi"
-        fill_in "Description", with: "My friends"
-        click_button "Create Lista de actividade"
+        create_list_de_actividades( title: "Hi" )
 
         #We expect an error if it's black
         expect(page).to have_content("error")
@@ -80,7 +75,7 @@ describe "Creating lista de actividades" do
         #we are going back to the main page
         visit "/lista_de_actividades"
         #expext to not have a title content
-        expect(page).to_not have_content("I going to play bowling.")
+        expect(page).to_not have_content("I going to play, I am excited.")
 
     end
 
@@ -91,14 +86,7 @@ describe "Creating lista de actividades" do
         it "displays an error when the lista de actividade has no description" do
         expect(ListaDeActividade.count).to eq(0)
 
-        visit "/lista_de_actividades"
-        click_link "New Lista de actividade"
-        expect(page).to have_content("New Lista De Actividade")
-
-        #here I set the description as an empty string.
-        fill_in "Title", with: "Play soccer"
-        fill_in "Description", with: ""
-        click_button "Create Lista de actividade"
+        create_list_de_actividades( title: "Playing soccer", description: "" )
 
         #We expect an error if it's black
         expect(page).to have_content("error")
@@ -116,14 +104,7 @@ describe "Creating lista de actividades" do
         it "displays an error when the lista de actividade has a description less than 5 characters" do
         expect(ListaDeActividade.count).to eq(0)
 
-        visit "/lista_de_actividades"
-        click_link "New Lista de actividade"
-        expect(page).to have_content("New Lista De Actividade")
-
-        #here I set the description as an empty string.
-        fill_in "Title", with: "Play soccer"
-        fill_in "Description", with: "With"
-        click_button "Create Lista de actividade"
+        create_list_de_actividades( title: "Playing soccer", description: "Stay" )
 
         #We expect an error if it's black
         expect(page).to have_content("error")
