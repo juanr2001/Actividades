@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Lista De Actividades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lista_de_actividades.each do |lista_de_actividade| %>
+      <tr>
+        <td><%= lista_de_actividade.title %></td>
+        <td><%= lista_de_actividade.description %></td>
+        <td><%= link_to 'Show', lista_de_actividade %></td>
+        <td><%= link_to 'Edit', edit_lista_de_actividade_path(lista_de_actividade) %></td>
+        <td><%= link_to 'Destroy', lista_de_actividade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lista de actividade', new_lista_de_actividade_path %>
